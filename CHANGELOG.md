@@ -2,6 +2,13 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.4.1] - 2026-08-27
+
+### Fixed
+
+- **点击 Enterprise 闪回原生 DSH 界面**（根因）：`NewTaskPage / SettingsPage / MembersModal / TeamEditorModal` 在 `if (!snap) return …` 之后调用 `useState`/`useEffect`，违反 React Hooks 顺序规则 —— 首帧（快照加载前）1 个 hook，快照到达后变 3+ hooks，React 抛错导致 overlay 槽被卸载。已将全部 hooks 移到早期返回之前（SettingsPage/TeamEditorModal 用 `useEffect` 同步快照数据）；
+- MembersModal 提交后自动清空输入；TeamEditorModal 打开时重置表单。
+
 ## [0.4.0] - 2026-08-27
 
 ### Added（模式内直接对话，不再跳转原生 DSH）
