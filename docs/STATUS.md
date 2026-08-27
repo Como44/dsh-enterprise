@@ -1,39 +1,40 @@
 # STATUS —— 当前真实状态
 
-> 更新：第 3 轮（开源化 + BYO API 定位）。本文件是唯一状态来源，每轮结束更新。
+> 更新：第 4~5 轮（UI 迭代 v0.6.x：闪回修复 + Agent-first + 自动生成 Preset）。本文件是唯一状态来源，每轮结束更新。
 
 ## 当前阶段
-**开源仓库就绪（MIT + 产品文档随项目），等待发布决策与 MVP 对账收尾。**
+**v0.6.6 已发布并部署到本机**（GitHub Release + `C:\Users\xqcom\.dsh\enterprise` 数据 + 用户级 `.agent-presets` 自动补齐），等待用户硬刷验证后进入 P0 收尾。
 
 ## 已完成
-0. **开源项目化（本轮）**：
-   - 仓库根：`F:\dsh-plugins\dsh-enterprise`（真实目录，已 git init；`F:\DeepSeek Harness\plugins\dsh-enterprise` 为 junction；profile 依赖 `link:F:/dsh-plugins/dsh-enterprise` 不变，dump-config PASS，state API 200）；
-   - 开源文件：MIT LICENSE、README（BYO API 定位 + 架构 + 路线图）、CONTRIBUTING、CHANGELOG（0.1.0）、.gitignore；
-   - 产品文档 12 份随项目迁入 `docs/`（PROJECT/DECISIONS/STATUS/BACKLOG + 8 份模型）；Accio 事实调研留在研究仓库（research/accio/）。
-1. **Accio 调研**（证据标注）：
-   - 能力地图 `research/accio/ACCIO-CAPABILITY-MAP.md`（15 类能力，确认度×DSH 状态）；
-   - 企业版实证：**Accio Work Business**（2026-08 香港上线，港媒 4 篇）；团队 Skills/Agent 一键共享（3 篇报道）；i豆 vs 积分两套货币（论坛实测）；省钱技巧/企业知识库文章；官方 changelog 地址确认（accio.com/work/documents/en/changelog.html）；
-   - 未知事实集中到 `research/accio/OPEN-QUESTIONS.md`（9 条，均不阻塞；需用户截图验证的已打包列好）。
-2. **DSH 调研**：
-   - 服务目录/事件/Slot/类型定义全量过一遍（agentPresets、skills、sessionQuery、sessionStats、tokenMeter、**usageCost（dsh-cost-line）**、schedule、agentTeams、subagents、credentials、authorization、mcpClient、workspaceRegistry、webServer、apiProxy RPC 信封）；
-   - 生态扫描：awesome-dsh-plugin ×2、dsh-usage-plugin、DSH-plugin(kbtime)（用量/费用/峰谷）、dsh-mobile-gate（多人访问网关先例）、dsh-session-manager（会话/工作区删除）。
-3. **产品模型**：`design/` 下 8 份文档 + `ACCIO-TO-DSH.md` 映射表（A/B/C/D 四分法）。
-4. **代码现状**（前两轮已交付，非本轮新写）：
-   - `plugins/dsh-enterprise`（F:\DeepSeek Harness\plugins\dsh-enterprise，junction 于 F:\dsh-plugins\dsh-enterprise，已装进 web profile）；
-   - host：企业数据 API + 持久化 + 种子 + agent.create/bind/update；client：绿色视觉 + 智能体页（页签/搜索/Banner/添加入口）+ 五步创建向导 + 首页 chips + 最近任务；
-   - 已验证：`/plugins/dsh-enterprise/state` 200、dump-config 通过、语法与括号栈 0 失衡。
+0. **开源与发布（前轮）**：MIT + 产品文档 12 份（docs/）+ README/CONTRIBUTING/CHANGELOG；仓库 `Como44/dsh-enterprise`（public），发布 v0.1.0…v0.6.6；awesome-dsh-plugin 已收录（Enterprise & Team）。
+1. **架构落地**：host `lib/index.js`（状态快照/会话视图/持久化/action 集）+ client `lib/client.js`（Slot 注入：sidebar.footer.action 入口 + shell.overlay 全屏工作台）；纯 DSH 原生主题令牌（`--dsw-*` → `--entm-*`），不替换任何原生 UI。
+2. **产品原则已贯彻**：
+   - Agent-first：任务从智能体开始；DSH 预置（standard/code/minimal/cordis）= **新会话的会话设置（模式）**，不是角色智能体；新任务右栏仅 **一个** 企业默认角色；
+   - 新建智能体 = 生成**真实 AgentPreset**（`agent.cordis.yml` + preset.yml + IDENTITY/SOUL/AGENTS/MEMORY/USER.md 五核心文件，用户级 `$DSH_HOME/.agent-presets/`）；
+   - BYO-API/自托管：无积分/虚拟币，管理员在「API 配置」页配置源头 API；成本 = 真实价格投影（usageCost）。
+3. **v0.6.3~0.6.6 关键修复（本轮冲刺）**：
+   - **v0.6.3** ErrorBoundary 包裹整个 overlay：渲染异常不再静默卸载 slot → 闪回防护（错误可见化）；
+   - **v0.6.4** 用 ErrorBoundary 捕获到真实报错 `settingsOpen is not defined` → 补上 0.6.2 遗失的 `useState` 声明（闪回根因）；
+   - **v0.6.5** 任务侧边栏 **Agent-first 分组**：组标题 = 企业智能体名（不再出现「标准模式/创造模式」等预置名），无归属会话收进「临时任务」；
+   - **v0.6.6** 启动自动 `ensureAgentPresets`：为所有 `presetId` 为空的智能体（含演示智能体与丢失旧预设的「运营助手」）**自动生成真实 AgentPreset 并持久化绑定**（幂等）→ 默认角色 = 真实企业智能体，不再回退显示「标准模式」；状态 GET 兜底 ensure。
+4. **数据现状（本机验证）**：
+   - `data.json`：org=测试企业；6 智能体全部 `presetId` 绑定（agent-agent / agent-agent-vptm… / agent-attn「运营助手」），authored=true，5 核心文件就位；
+   - `.agent-presets/` 已生成 6 个用户级预设目录；状态接口 200（含 6 agents + 10 presets + 40 会话）；
+   - 客户端 bundle（rev 随文件变化）已确认包含 0.6.5 分组修复；host 为 0.6.6（重启后 PID 8296）。
+5. **开发/验证基建**：restart-once 机制（schtasks + `F:\rh.cmd` → `restart-dsh-once.cmd`，40s 延迟 + 日志）已验证可用；控制台 GBK 乱码 ≠ 文件损坏（验证走 Node readFileSync）；package.json 任何 PowerShell 写入后必须去 BOM。
 
 ## 正在进行
-- 无（本轮以文档为主，按用户指示暂停主体开发）。
+- 用户硬刷验证 v0.6.6（任务侧边栏「临时任务」组 + 默认角色=供应分析 Agent + 智能体可直接对话）。
 
-## 下一步
-1. MVP 对账：把「已实现 vs MVP.md」差异补齐（用量成本页接 `usageCost` 真实价格、企业额度字段、版本/推荐字段、Connections 占位页）；
-2. 请用户验证 OPEN-QUESTIONS（提供 Business 版截图：成员管理/积分明细/后台总览/知识库/连接管理）——**批量验证，不逐条打断**；
-3. 用户确认产品模型（PRODUCT-MODEL / MVP 范围）后进入 P0 收尾开发。
+## 下一步（优先级排序，用户确认后执行）
+1. **P0-1 智能体详情改版**：左侧 身份/插件/技能/核心文件 页签 + 右侧实时预览；核心文件可编辑（写回 `.agent-presets/<id>/` 对应 MD）。
+2. **P0-2「设为企业默认」**：默认角色选择（当前为第一位智能体）。
+3. MVP 对账：用量成本页接真实价格、企业额度字段、Connections 页完善。
+4. 生态推广：awesome-dsh-plugin 收录复核 + README 功能截图（等 UI 稳定）。
 
 ## 阻塞项
 - 无阻塞。真实多人身份（P2）依赖网关方案，未定。
 
 ## 需要用户判断
-- ① PRODUCT-MODEL 中「离职资产规则」（Q5）与「成本=真实价格而非积分」（D4）是否认可；
-- ② 是否愿意提供 Accio Work Business 后台截图（见 OPEN-QUESTIONS 集中清单）。
+- ① 智能体详情改版交互（左标签 + 右预览 + 核心文件可编辑）是否认可，确认后开工；
+- ② PRODUCT-MODEL 中「离职资产规则」（Q5）与「成本=真实价格」（D4）是否认可（不阻塞当前开发）。
