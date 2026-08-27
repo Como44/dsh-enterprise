@@ -2,6 +2,15 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.6.6] - 2026-08-27
+
+### Fixed（企业智能体全部真正可用 — 默认角色不再是「标准模式」）
+
+- **根因**：当前数据里所有企业智能体（5 个演示智能体 + 向导创建的「运营助手」）的 `presetId` 都为空 —— 它们没有真实 AgentPreset，无法启动会话；于是新任务默认角色回退到 DSH 预置（右侧面板显示「标准模式」，截图同款问题），任务也全部落到临时会话；
+- **修复（host）**：插件启动即执行 `ensureAgentPresets` —— 为所有 `presetId` 为空的智能体**自动生成真实 AgentPreset**（`agent.cordis.yml` + preset.yml + IDENTITY/SOUL/AGENTS/MEMORY/USER.md，幂等：已有 presetId 则跳过），并持久化绑定；
+- 效果：默认角色 = 第一位企业智能体（如「供应分析 Agent」），右侧面板显示真实角色而非模式名；「对话/开始任务」可直接工作；损坏/丢失的旧角色（运营助手）自动修复；
+- 状态 GET 也做兜底 ensure（首次请求即已修复，后续零开销）。
+
 ## [0.6.5] - 2026-08-27
 
 ### Fixed（任务列表不再出现「模式」名 — Agent-first 分组）
