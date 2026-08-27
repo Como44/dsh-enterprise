@@ -2,6 +2,14 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.5.1] - 2026-08-27
+
+### Changed（对话区分度 + 基础选项）
+
+- **对话双栏气泡**：助手消息左对齐（智能体头像 + 白卡气泡），用户消息右对齐绿色气泡，工具调用为灰色摘要行（⚙ 前缀）——不再单列不分；
+- **聊天工具栏新增**：当前工作区（点击打开/新建工作区）、**模型切换**（`llm.models` 目录下拉 → `session.selectModel` 立即生效）、**权限·原生**（说明 DSH allow/ask/deny 在每次动作与审批面板生效）；
+- 会话头部显示 会话标题 + 智能体标签（agentPreset 名称）。
+
 ## [0.5.0] - 2026-08-27
 
 ### Fixed（UI 检测计划 A3/A4/A5 三项）
