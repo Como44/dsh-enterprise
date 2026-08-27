@@ -2,6 +2,22 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.6.0] - 2026-08-27
+
+### Added（核心架构修正：新建智能体 = 生成真实 AgentPreset + 核心文件）
+
+- **新建智能体真正生效**：空白智能体 → host 自动在 `$DSH_HOME/.agent-presets/<agent-id>/` 生成真实 AgentPreset 目录：
+  - `agent.cordis.yml`：以部署 `minimal` 预置为基底 + `dsh-persona` 行（**人设文本 = 上下文装配的核心**，遮蔽部署默认人设；支持 {{model}}/{{cwd}} 变量）；
+  - `preset.yml`：名称/说明/排序（被 agentPresets 实时发现）；
+  - **五个核心文件** `IDENTITY.md / SOUL.md / AGENTS.md / MEMORY.md / USER.md`（对齐 Accio 核心文件概念：身份/职责/能力/风格/用户信息，由向导字段自动生成，可后续编辑）；
+- 创建后 agent 的 `presetId` 指向新角色 → **卡片立即「对话」**（无需再绑定已有预置）；agentPresets 名录为无缓存实时读取，重启前即可见；
+- 智能体详情新增「核心文件（上下文）」标签展示。
+
+### Notes
+
+- 生成的角色目录属用户级（`.agent-presets`），与部署预置隔离；删除该目录即移除角色；
+- 原有「绑定预置角色」路径保留（演示 Agent / 复用部署角色）。
+
 ## [0.5.3] - 2026-08-27
 
 ### Changed（UI 对齐 DSH 原生风格）
