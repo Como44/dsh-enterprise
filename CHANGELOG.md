@@ -2,6 +2,13 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.5.3] - 2026-08-27
+
+### Changed（UI 对齐 DSH 原生风格）
+
+- **主题 token 直连**：全部配色改为消费 DSH 原生主题变量（`--dsw-alias-bg-base / bg-layer-1 / border-l1·l2 / label-primary·secondary / brand-primary / state-* / dsw-specific-sidebar-fill`）——深浅色与主题切换**自动跟随 DSH**，删除自维护调色板与 prefers-color-scheme 覆盖；
+- **视觉度量原生化**：卡片/弹窗/向导圆角 12–16 → 8–10；阴影改为轻量；侧边栏使用 DSH 专属侧栏填充色；主操作按钮保持品牌色，次级按钮/智能体按钮/chips 改为中性描边风格；Banner 从绿色渐变改为中性面板样式；错误/警告标签使用 DSH 状态色。
+
 ## [0.5.2] - 2026-08-27
 
 ### Changed（新任务页工具栏补齐）
