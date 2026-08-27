@@ -2,6 +2,14 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.6.4] - 2026-08-27
+
+### Fixed（闪回根因：settingsOpen 未声明）
+
+- **根因确认**：「新任务」页的「会话设置」展开区使用 `settingsOpen` / `setSettingsOpen`，但 0.6.2 收拢面板时丢失了 `const [settingsOpen, setSettingsOpen] = useState(false)` 声明——页面渲染到工具栏「会话设置」按钮时抛 ReferenceError，React 卸载整个 slot → 闪回 DSH 原生页；
+- 补上该 state 声明（hook 位于早退之前，顺序正确）；并做全量检测：所有自定义 `setX` 均有对应 `useState` 声明（`setTimeout/setInterval` 为全局 API，`setField` 为本地函数，均正常）；
+- 0.6.3 的 ErrorBoundary 保留：今后任何渲染异常都会显示错误卡片而非闪回。
+
 ## [0.6.3] - 2026-08-27
 
 ### Fixed（闪回防护：渲染错误不再被静默卸载）
