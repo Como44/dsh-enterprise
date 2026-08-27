@@ -2,6 +2,13 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.5.2] - 2026-08-27
+
+### Changed（新任务页工具栏补齐）
+
+- **新任务输入卡**增加与聊天一致的工具栏：选择工作目录 + **模型下拉**（默认模型/全目录，创建会话后自动应用 `session.selectModel`）+ 权限·原生说明 + 圆形发送键；
+- 场景 chips 与主发送按钮均使用所选模型。
+
 ## [0.5.1] - 2026-08-27
 
 ### Changed（对话区分度 + 基础选项）
