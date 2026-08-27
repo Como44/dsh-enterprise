@@ -2,6 +2,21 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.4.0] - 2026-08-27
+
+### Added（模式内直接对话，不再跳转原生 DSH）
+
+- **模式内会话界面 ChatPage**：「新任务」发送或「开始任务」→ 在该模式内创建 DSH 会话并**直接对话**（消息列表 + 输入框 + 轮询增量刷新 1.6s）；
+- **统一 RPC 封装** `apiCall(method, payload)`：`session.create` 创建、`session.prompt`（mode: queue）发送，全部留在 Enterprise 模式内；
+- **host 会话读取端点** `GET /plugins/dsh-enterprise/conversation?sessionId=&after=`：读取会话 surface（user/message、assistant/message、tool/result），支持 `after=seq` 增量轮询；标题/预置角色随响应返回；
+- 侧边栏「任务」、Agent 详情「最近会话」、工作区打开 —— 全部改为**模式内打开会话**（不再关闭 overlay）；
+- 发送中状态（…）、发送按钮禁用、Enter 发送/Shift+Enter 换行、自动滚动到底部。
+
+### Notes
+
+- 消息渲染为纯文本（用户/助手气泡 + 工具行摘要）；富文本/图片/流式高亮后续迭代；
+- 轮询为最佳努力：会话被删除或服务未挂载时静默降级（不报错不打断）。
+
 ## [0.3.0] - 2026-08-27
 
 ### Changed（结构性重构：Agent-first 会话模式）

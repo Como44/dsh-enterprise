@@ -1,7 +1,7 @@
 {
   "name": "dsh-enterprise",
-  "version": "0.3.0",
-  "description": "DSH Enterprise 閳?a self-hosted, bring-your-own-API enterprise AI workbench for DeepSeek Harness: organization, members, AI assets, usage & cost. Inspired by the product patterns of Accio Work Business (no branding/asset copying).",
+  "version": "0.4.0",
+  "description": "DSH Enterprise 闁?a self-hosted, bring-your-own-API enterprise AI workbench for DeepSeek Harness: organization, members, AI assets, usage & cost. Inspired by the product patterns of Accio Work Business (no branding/asset copying).",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
