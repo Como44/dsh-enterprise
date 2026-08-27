@@ -1,0 +1,4 @@
+# dsh-enterprise bundle patch: mount one host plugin row.
+- insert:
+    - id: dsh-enterprise
+      name: dsh-enterprise

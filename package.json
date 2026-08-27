@@ -1,0 +1,45 @@
+{
+  "name": "dsh-enterprise",
+  "version": "0.1.0",
+  "description": "DSH Enterprise — a self-hosted, bring-your-own-API enterprise AI workbench for DeepSeek Harness: organization, members, AI assets, usage & cost. Inspired by the product patterns of Accio Work Business (no branding/asset copying).",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Como44/dsh-enterprise.git"
+  },
+  "homepage": "https://github.com/Como44/dsh-enterprise#readme",
+  "bugs": {
+    "url": "https://github.com/Como44/dsh-enterprise/issues"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "enterprise",
+    "team",
+    "workspace",
+    "agents",
+    "usage",
+    "cost",
+    "assets"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  }
+}
