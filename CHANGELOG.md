@@ -2,6 +2,21 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.3.0] - 2026-08-27
+
+### Changed（结构性重构：Agent-first 会话模式）
+
+- **取消首页**：默认界面改为「新任务」——选择智能体（企业 Agent / 预置角色）→ 场景快捷入口（办公提效/设计/建站/采购/数据分析）→「开始任务」以该角色创建 DSH 会话并进入对话（复用 `session.create{agentPreset}`）；
+- **侧边栏重排**（对齐 Accio Work 结构）：新任务 / 智能体 / 插件 / 知识库(P1 占位) + **任务分组**（按智能体分组的会话列表，组头收起/展开）+ 组织组（企业资产/技能/成员/使用量/连接/设置）；
+- **智能体团队**（复用 DSH agentTeams）：团队 = 企业定义（名称/说明/TL 预置角色/成员角色）；「以团队开始」用 TL 开会话；团队详情可查看**运行时视图**（成员/任务看板，best-effort 对 live 会话）；
+- **DSH 原生设置映射**：设置页展示 主题/语言（client theme/locale 只读）+ Provider/默认模型/插件数/角色数，附「在 DSH 中打开设置」入口指引；
+- 新增动作：`team.create / team.update / team.delete / team.runtime`（runtime 为只读查询，不落盘）。
+
+### Notes
+
+- 团队运行时依赖会话为 live（DSH agentTeams 需要实际 Team 会话）；非团队会话显示提示而非报错；
+- 知识库页为 P1 占位（目录索引 + 可见范围）。
+
 ## [0.2.0] - 2026-08-27
 
 ### Added
