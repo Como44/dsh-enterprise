@@ -2,6 +2,14 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.6.3] - 2026-08-27
+
+### Fixed（闪回防护：渲染错误不再被静默卸载）
+
+- **ErrorBoundary 包裹整个企业模式界面**：任何子组件渲染异常不再导致 slot 卸载、界面闪回 DSH 原生页，而是显示「界面渲染出错（已拦截）」卡片 + 错误消息 + 「返回 DSH」按钮；
+- 若再次出现闪回，错误文本会直接显示在界面上（此前是被 React 静默卸载，无从排查）——把它截图/发给我即可定位根因；
+- 修正 package.json description 里的历史乱码（`闂?`），版本号 0.6.3。
+
 ## [0.6.2] - 2026-08-27
 
 ### Fixed / Changed
