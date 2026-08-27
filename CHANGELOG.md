@@ -2,6 +2,24 @@
 
 遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.5.0] - 2026-08-27
+
+### Fixed（UI 检测计划 A3/A4/A5 三项）
+
+- **历史会话无法在模式内打开**：① `/conversation` 端点在此前从未被加载（服务器未真正重启——重启机制失效，见下）；② 冷会话（历史/非 live）surface 读取失败时**无回退**。已加 `readSession` 原始日志回退（同样的消息映射），冷会话也能在模式内打开；
+- **工作区无法新增**：「选择工作目录」弹窗新增「新建工作区」（`workspaces.pickDirectory` → `create({path})` → 刷新快照）；
+- **重启机制失效（根因修复）**：此前所有「延迟重启」脚本在受限会话中静默未执行（logs/restart-once.log 缺失，服务器 PID 一直未变）。改为 **Windows 任务计划（schtasks）一次性任务** + 日志三阶段（begin/kill/done），可验证。
+
+### Added（BYO-API 配置页）
+
+- **组织 → API 配置**：`llm.providers` 目录（41 个 Provider，显示 已启用/未启用 + 配置命名空间）+ 通用 `settings.describe/mutate` 编辑器（schemastery 递归转标量表单，密钥字段不回显，`expectedRevision` 冲突保护）；默认模型命名空间（agent-default-model）可配置；
+- 说明区明确模型清单由 Provider 路由自动解析（无需逐个新增模型）。
+
+### Notes
+
+- Provider 配置变更后**重启 dsh web** 确保完全生效（llm 路由在启动时组装）；
+- 新增 `docs/UI-AUDIT.md` 检测计划（A 关键路径 / B 已修问题 / C 待检项 / D 已知限制）。
+
 ## [0.4.2] - 2026-08-27
 
 ### Changed（UI 对齐 Accio Work「新任务」截图）
